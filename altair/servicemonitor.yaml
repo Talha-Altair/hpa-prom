@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ezio
+  labels:
+    release: prom-stack
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: ezio
+  endpoints:
+  - port: web

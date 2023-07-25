@@ -15,3 +15,11 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 helm repo update
 kubectl create ns monitoring
 helm install prom-stack prometheus-community/kube-prometheus-stack -n monitoring
+
+Install App
+
+kubectl apply -f workload.yaml
+
+Install servicemonitor
+
+kubectl apply -f servicemonitor.yaml

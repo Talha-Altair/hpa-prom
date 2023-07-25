@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ezio
+  labels:
+    app: ezio
+spec:
+  selector:
+    matchLabels:
+      app: ezio
+  template:
+    metadata:
+      labels:
+        app: ezio
+    spec:
+      containers:
+      - name: ezio
+        image: talhaabdurrahman/ezio-prom
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ezio
+  labels:
+    app: ezio
+spec:
+  selector:
+    app: ezio
+  ports:
+  - port: 80
+    targetPort: 5000
+    name: web
+  type: ClusterIP
