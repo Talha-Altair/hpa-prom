@@ -23,3 +23,15 @@ kubectl apply -f workload.yaml
 Install servicemonitor
 
 kubectl apply -f servicemonitor.yaml
+
+Install Adapter
+
+helm install prom-adapter prometheus-community/prometheus-adapter -f adapter-values.yaml -n monitoring
+
+kubectl apply -f custom-metric-connector.yaml
+
+kubectl get --raw "/apis/custom.metrics.k8s.io/v1beta1/namespaces/default/pods/*/buy_total" | jq . 
+
+Create HPA
+
+kubectl create -f hpa.yaml

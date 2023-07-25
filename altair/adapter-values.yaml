@@ -1,0 +1,12 @@
+prometheus:
+  url: http://prom-stack-kube-prometheus-prometheus.monitoring
+
+rules:
+  custom:
+  - seriesQuery: '{__name__=~"^buy_total$"}'
+    resources:
+      template: <<.Resource>>
+    name:
+      matches: ""
+      as: "buy_total"
+    metricsQuery: (buy_total)
