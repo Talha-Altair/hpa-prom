@@ -1,0 +1,23 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: dhruva-server
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: dhruva-server
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Object
+      object:
+        metric:
+          name: starlette_request_duration_seconds_count
+        describedObject:
+          apiVersion: v1beta1.custom.metrics.k8s.io
+          kind: Deployment
+          name: dhruva-server
+        target:
+          type: Value
+          value: "5000"
